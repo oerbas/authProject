@@ -1,1 +1,2 @@
-# authProject
+Start Project:
+  - $expo start
