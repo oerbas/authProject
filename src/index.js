@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import firebase from 'firebase';
 import { Header } from './components/common/Header';
 import LoginForm from './components/LoginForm';
 
 class Index extends Component {
+    state = { loggedIn: false };
+
     componentWillMount() {
         firebase.initializeApp({
             apiKey: "AIzaSyA3fx8_TEOmvg-TOah_jBVlBLzZ3FcDTiA",
@@ -13,6 +15,14 @@ class Index extends Component {
             projectId: "auth-b025e",
             storageBucket: "auth-b025e.appspot.com",
             messagingSenderId: "880837806161"
+        });
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({ loggedIn: true });
+            } else {
+                this.setState({ loggedIn: false });
+            }
         });
     }
 
@@ -25,14 +35,5 @@ class Index extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
 
 export default Index
